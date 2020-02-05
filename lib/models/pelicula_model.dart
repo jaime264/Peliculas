@@ -1,19 +1,19 @@
+import 'package:flutter/material.dart';
+
 class Peliculas{
   
-  List<Pelicula> items = new List<dynamic>;
+  List<Pelicula> items = new List();
 
   Peliculas();
 
   Peliculas.fromJsonList(List<dynamic> jsonList){
-    if(jsonList = null) return;
+    if(jsonList == null) return;
     for(var item in jsonList){
       final pelicula = new Pelicula.fromJsonMap(item);
       items.add(pelicula);
     }
   }
 }
-
-
 class Pelicula {
   String posterPath;
   bool adult;
@@ -62,5 +62,21 @@ class Pelicula {
     voteCount   = json['vote_count'];
     video       = json['video'];
     voteAverage = json['vote_average']/1;
+  }
+
+  getPosterPath(){
+    if(posterPath == null){
+      return AssetImage('assets/img/no-image');
+    }else{
+      return 'https://image.tmdb.org/t/p/w1280$posterPath';
+    }
+  }
+
+  getBackDropPath(){
+    if(posterPath == null){
+      return AssetImage('assets/img/no-image');
+    }else{
+      return 'https://image.tmdb.org/t/p/w1280$backdropPath';
+    }
   }
 }
