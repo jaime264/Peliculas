@@ -13,10 +13,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   PeliculasProvider peliculasProvider = new PeliculasProvider();
 
   @override
   Widget build(BuildContext context) {
+
+    peliculasProvider.getPopular();
+
     return Scaffold(
         appBar: AppBar(
           title: Text('Prueba'),
@@ -81,13 +85,14 @@ class _HomePageState extends State<HomePage> {
             style: Theme.of(context).textTheme.subhead,),
           ),
           SizedBox(height: 5.0),
-          FutureBuilder(
-            future: peliculasProvider.getPopular(),
+          StreamBuilder(
+            stream: peliculasProvider.popularesStream,
             builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
               if (snapshot.hasData) {
                 return 
                     MovieHorizontal(
                       peliculas: snapshot.data,
+                      siguientePagina: peliculasProvider.getPopular,
                     );
               } else {
                 return Container(
