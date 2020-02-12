@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:peliculas/models/pelicula_model.dart';
 
 class MovieHorizontal extends StatelessWidget {
-
   final List<Pelicula> peliculas;
   final Function siguientePagina;
 
-  MovieHorizontal( {@required this.peliculas, @required this.siguientePagina}) ;
+  MovieHorizontal({@required this.peliculas, @required this.siguientePagina});
 
   final _pageController = PageController(initialPage: 1, viewportFraction: 0.3);
 
@@ -14,13 +13,12 @@ class MovieHorizontal extends StatelessWidget {
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
 
-    _pageController.addListener((){
-
-      if(_pageController.position.pixels >= _pageController.position.maxScrollExtent - 200){
+    _pageController.addListener(() {
+      if (_pageController.position.pixels >=
+          _pageController.position.maxScrollExtent - 200) {
         //print('Cargar siguiente pagina');
         siguientePagina();
       }
-
     });
 
     return Container(
@@ -29,19 +27,24 @@ class MovieHorizontal extends StatelessWidget {
         pageSnapping: false,
         itemCount: peliculas.length,
         controller: _pageController,
-        itemBuilder: (BuildContext context , int i) => _tarjeta(context, peliculas[i]),
+        itemBuilder: (BuildContext context, int i) =>
+            _tarjeta(context, peliculas[i]),
         //children: _tarjetas(context),
       ),
     );
   }
 
-  Widget _tarjeta(BuildContext context, Pelicula pelicula){
+  Widget _tarjeta(BuildContext context, Pelicula pelicula) {
 
-    final tarjeta =  Container(
-          margin: EdgeInsets.only(right: 15.0),
-          child: Column(
-            children: <Widget>[
-              ClipRRect(
+    pelicula.uniqueId = '${pelicula.id}-horizontal';
+
+    final tarjeta = Container(
+        margin: EdgeInsets.only(right: 15.0),
+        child: Column(
+          children: <Widget>[
+            Hero(
+              tag: pelicula.uniqueId,
+              child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(20.0)),
                 child: FadeInImage(
                   image: NetworkImage(pelicula.getPosterPath()),
@@ -50,44 +53,52 @@ class MovieHorizontal extends StatelessWidget {
                   height: 150.0,
                 ),
               ),
-              SizedBox(height: 5.0,),
-              Text(pelicula.title,
+            ),
+            SizedBox(
+              height: 5.0,
+            ),
+            Text(
+              pelicula.title,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.caption,
-              )
-            ],
-          ));
+            )
+          ],
+        ));
 
     return GestureDetector(
       child: tarjeta,
-      onTap: (){
+      onTap: () {
         Navigator.pushNamed(context, 'detail', arguments: pelicula);
-        print('Hola mundo');
       },
     );
-
   }
-
 
   List<Widget> _tarjetas(BuildContext context) {
     return peliculas.map((pelicula) {
+      pelicula.uniqueId = '${pelicula.id}-horizontal';
       return Container(
           margin: EdgeInsets.only(right: 15.0),
           child: Column(
             children: <Widget>[
-              ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                child: FadeInImage(
-                  image: NetworkImage(pelicula.getPosterPath()),
-                  placeholder: AssetImage('assets/img/no-image.jpg'),
-                  fit: BoxFit.cover,
-                  height: 150.0,
+              Hero(
+                tag: pelicula.uniqueId,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  child: FadeInImage(
+                    image: NetworkImage(pelicula.getPosterPath()),
+                    placeholder: AssetImage('assets/img/no-image.jpg'),
+                    fit: BoxFit.cover,
+                    height: 150.0,
+                  ),
                 ),
               ),
-              SizedBox(height: 5.0,),
-              Text(pelicula.title,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.caption,
+              SizedBox(
+                height: 5.0,
+              ),
+              Text(
+                pelicula.title,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.caption,
               )
             ],
           ));

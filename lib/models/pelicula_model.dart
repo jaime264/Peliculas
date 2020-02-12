@@ -30,6 +30,8 @@ class Pelicula {
   bool video;
   double voteAverage;
 
+  String uniqueId;
+
   Pelicula({
     this.posterPath,
     this.adult,
@@ -66,7 +68,7 @@ class Pelicula {
 
   getPosterPath(){
     if(posterPath == null){
-      return AssetImage('assets/img/no-image');
+      return AssetImage('assets/img/no-image').toString();
     }else{
       return 'https://image.tmdb.org/t/p/w1280$posterPath';
     }
@@ -74,7 +76,7 @@ class Pelicula {
 
   getBackDropPath(){
     if(posterPath == null){
-      return AssetImage('assets/img/no-image');
+      return AssetImage('assets/img/no-image').toString();
     }else{
       return 'https://image.tmdb.org/t/p/w1280$backdropPath';
     }
