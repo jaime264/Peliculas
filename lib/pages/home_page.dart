@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:peliculas/providers/peliculas_provider.dart';
+import 'package:peliculas/search/search_delegate.dart';
 import 'package:peliculas/widgets/card_swipper_widget.dart';
 import 'package:peliculas/widgets/footer_swipper_widget.dart';
 import 'package:peliculas/widgets/movie_horizontal.dart';
@@ -23,7 +24,21 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Prueba'),
+          centerTitle: false,
+          title: Text('Peliculas en cines'),
+          backgroundColor: Colors.indigoAccent,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: (){
+                showSearch(
+                  context: context, 
+                  delegate: DataSearch(),
+                  //query: 'hola'
+                  );
+              }
+              )
+          ],
         ),
         body: Container(
           child: Column(

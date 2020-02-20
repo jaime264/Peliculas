@@ -56,7 +56,7 @@ class Pelicula {
     releaseDate = json['release_date'];
     genreIds    = json['genre_ids'].cast<int>();
     id          = json['id'];
-    originalTitle = json['original_Title'];
+    originalTitle = json['original_title'];
     originalLanguage = json['original_language'];
     title       = json['title'];
     backdropPath = json['backdrop_path'];

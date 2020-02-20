@@ -81,12 +81,12 @@ class DetailPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                pelicula.title ?? "",
+                pelicula.title ?? '',
                 style: Theme.of(context).textTheme.title,
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
-                pelicula.originalTitle ?? "",
+                pelicula.originalTitle ?? '',
                 style: Theme.of(context).textTheme.subhead,
                 overflow: TextOverflow.ellipsis,
               ),
